@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>HTML5 Exampels: SessionStorage</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dark.css">
+    <script src="highlight.pack.js"></script>
+  </head>
+  <body>
+    <h1>SessionStorage</h1>
+    <p>Provides simple key-value based storage similar to <a href="localstorage.html">LocalStorage</a> but the persistance is till the lifetime of the browser tab. The contents of the SessionStorage are not availabe even to pages from the same domain running on other tabs.</p>
+    <p>Type the following in the developer tools console</p>
+    <pre><code class="javascript">
+    var ss = window.sessionStorage;
+
+    ss.length;
+
+    ss.setItem("key", "value");
+
+    ss.length;
+
+    ss.getItem("key");
+    
+    ss.getItem("nonExistentKey");
+
+    ss.removeItem("key");
+
+    ss.length;
+
+    ss.removeItem("nonExistentKey");
+
+    ss.clear();
+    </code></pre>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
