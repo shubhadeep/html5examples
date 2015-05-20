@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>HTML5 Exampels: LocalStorage</title>
+    <link rel="stylesheet" href="dark.css">
+    <script src="highlight.pack.js"></script>
+  </head>
+  <body>
+    <h1>LocalStorage</h1>
+    <p>Type the following in the developer tools console</p>
+    <pre><code class="javascript">
+    var ls = window.localStorage;
+
+    ls.length;
+
+    ls.setItem("key", "value");
+
+    ls.length;
+
+    ls.getItem("key");
+    
+    ls.getItem("nonExistentKey");
+
+    ls.removeItem("key");
+
+    ls.length;
+
+    ls.removeItem("nonExistentKey");
+
+    ls.clear();
+    </code></pre>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
