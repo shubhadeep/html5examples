@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>HTML5 Exampels: IndexedDB</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dark.css">
+    <script src="highlight.pack.js"></script>
+  </head>
+  <body>
+    <h1>IndexedDB</h1>
+    <p>Provides large-scale data persistance with indexing with a non-blocking API.</p>
+    <p>Type the following in the developer tools console</p>
+    <pre><code class="javascript">
+    (function (idb) {
+        var request = idb.open("MyDB3");
+
+        request.onupgradeneeded = function (event) {
+            // fires if the database did not exist
+            console.log("onupgradeneeded");
+            var db = event.srcElement.result;
+                store = db.createObjectStore("people", {keyPath: "id"}),
+                nameIndex = store.createIndex("by_name", "name", {unique: false});
+                emailindex = store.createIndex("by_email", "email", {unique: true});
+
+            // initialize with some data
+            store.put({id: 0, name: "John", email: "jsmith@example.com"});
+            store.put({id: 1, name: "Mary", email: "mjane@example.com"});
+        };
+
+        request.onsuccess = function (event) {
+            console.log("onsuccess");
+            var db = event.srcElement.result;
+            console.log(db);
+        };
+
+    })(window.indexedDB);
+    </code></pre>
+    <p>Mostly in all major browsers except Opera Mini. Check latest status at <a href="http://caniuse.com/#search=indexeddb">http://caniuse.com/#search=indexeddb</a></p>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </body>
+</html>
