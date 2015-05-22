@@ -13,10 +13,11 @@
     <p>Type the following in the developer tools console</p>
     <pre><code class="javascript">
     (function (idb) {
-        var request = idb.open("MyDB3");
+        var request = idb.open("My Database");
 
         request.onupgradeneeded = function (event) {
             // fires if the database did not exist
+            // or the version requested was not present
             console.log("onupgradeneeded");
             var db = event.srcElement.result;
                 store = db.createObjectStore("people", {keyPath: "id"}),
@@ -31,9 +32,26 @@
         request.onsuccess = function (event) {
             console.log("onsuccess");
             var db = event.srcElement.result;
-            console.log(db);
+            
+            // Populating data in a transaction
+            var transaction = db.transaction("people", "readwrite"),
+                store = transaction.objectStore("people");
+
+            store.put({id: 0, name: "Johnny", email: "jsmith@example.com"});
+            store.put({id: 2, name: "Johnny", email: "jsmith3@example.com"});
+
+            transaction.oncomplete = function (event) {
+                console.log("Transaction complete");
+            };
+
+            transaction.onerror = function (event) {
+                console.log("Transaction failed");
+            };
         };
 
+        request.onerror = function (event) {
+            console.log("Error opening database");
+        };
     })(window.indexedDB);
     </code></pre>
     <p>Mostly in all major browsers except Opera Mini. Check latest status at <a href="http://caniuse.com/#search=indexeddb">http://caniuse.com/#search=indexeddb</a></p>
